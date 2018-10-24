@@ -75,7 +75,7 @@ inline void Array<Type>::destroy()
 
 template<typename Type>
 inline Array<Type>::Array(size_t _size) :
-	m_size(_size + 1)
+	m_size(_size)
 {
 	m_pData = new Type[m_size];
 	clear();
@@ -220,66 +220,66 @@ inline iterator<Basic> & iterator<Basic>::operator=(Basic *_arr)
 }
 
 template<class Basic>
-inline bool iterator<Basic>::operator!=(iterator _end)
+inline bool iterator<Basic>::operator!=(iterator _other)
 {
 	assert(m_Data);
 
-	if (*m_Data != *_end.m_Data)
+	if (*m_Data != (*_other.m_Data))
 		return true;
 
 	return false;
 }
 
 template<class Basic>
-inline bool iterator<Basic>::operator==(iterator _end)
+inline bool iterator<Basic>::operator==(iterator _other)
 {
 	assert(m_Data);
 
-	if (*m_Data == *_end.m_Data)
+	if (*m_Data == *_other.m_Data)
 		return true;
 
 	return false;
 }
 
 template<class Basic>
-inline bool iterator<Basic>::operator<=(iterator _end)
+inline bool iterator<Basic>::operator<=(iterator _other)
 {
 	assert(m_Data);
 
-	if (*m_Data <= *_end.m_Data)
+	if (*m_Data <= *_other.m_Data)
 		return true;
 
 	return false;
 }
 
 template<class Basic>
-inline bool iterator<Basic>::operator>=(iterator _end)
+inline bool iterator<Basic>::operator>=(iterator _other)
 {
 	assert(m_Data);
 
-	if (*m_Data >= *_end.m_Data)
+	if (*m_Data >= *_other.m_Data)
 		return true;
 
 	return false;
 }
 
 template<class Basic>
-inline bool iterator<Basic>::operator<(iterator _end)
+inline bool iterator<Basic>::operator<(iterator _other)
 {
 	assert(m_Data);
 
-	if (*m_Data < *_end.m_Data)
+	if (*m_Data < *_other.m_Data)
 		return true;
 
 	return false;
 }
 
 template<class Basic>
-inline bool iterator<Basic>::operator>(iterator _end)
+inline bool iterator<Basic>::operator>(iterator _other)
 {
 	assert(m_Data);
 
-	if (*m_Data > *_end.m_Data)
+	if (*m_Data > *_other.m_Data)
 		return true;
 
 	return false;
@@ -300,7 +300,7 @@ inline iterator<Basic> iterator<Basic>::operator++(int)
 	assert(m_Data);
 
 
-	*m_Data++;
+	++*m_Data;
 	return *this;
 }
 
@@ -318,7 +318,7 @@ inline iterator<Basic> iterator<Basic>::operator--(int)
 {
 	assert(m_Data);
 
-	*m_Data--;
+	--*m_Data;
 	return *this;
 }
 
@@ -327,5 +327,5 @@ inline Basic iterator<Basic>::operator*()
 {
 	assert(m_Data);
 
-	return m_Data[m_index];
+	return (*m_Data);
 }
