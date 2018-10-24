@@ -1,6 +1,5 @@
 #include <iostream>
 #include "Array.hpp"
-#include <vector>
 
 int main()
 {

@@ -39,7 +39,6 @@ class iterator
 {
 	typedef Array<Basic> Array;
 	Basic *m_Data;
-	size_t m_index;
 public:
 	iterator() {}
 	iterator(Basic*);
@@ -206,7 +205,7 @@ inline Array<Type>::~Array()
 
 template<class Basic>
 inline iterator<Basic>::iterator(Basic *_arr) :
-	m_Data(_arr), m_index(0)
+	m_Data(_arr)
 {
 }
 
@@ -214,7 +213,6 @@ template<class Basic>
 inline iterator<Basic> & iterator<Basic>::operator=(Basic *_arr)
 {
 	m_Data = _arr;
-	m_index = 0;
 
 	assert(m_Data);
 }
@@ -298,7 +296,6 @@ template<class Basic>
 inline iterator<Basic> iterator<Basic>::operator++(int)
 {
 	assert(m_Data);
-
 
 	*m_Data++;
 	return *this;
