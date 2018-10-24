@@ -19,8 +19,8 @@ public:
 	Array(size_t = 10);
 	Array(const Array &);
 	Array(Array &&);
-	Array&operator=(const Array&);
-	Array&operator=(Array&&);
+	Array &operator=(const Array&);
+	Array &operator=(Array&&);
 	void clear();
 	size_t capacity();
 	size_t size();
@@ -41,7 +41,9 @@ class iterator
 	Basic *m_Data;
 	size_t m_index;
 public:
+	iterator() {}
 	iterator(Basic*);
+	iterator &operator=(Basic*);
 	bool operator!=(iterator);
 	bool operator==(iterator);
 	bool operator<=(iterator);
@@ -209,8 +211,19 @@ inline iterator<Basic>::iterator(Basic *_arr) :
 }
 
 template<class Basic>
+inline iterator<Basic> & iterator<Basic>::operator=(Basic *_arr)
+{
+	m_Data = _arr;
+	m_index = 0;
+
+	assert(m_Data);
+}
+
+template<class Basic>
 inline bool iterator<Basic>::operator!=(iterator _end)
 {
+	assert(m_Data);
+
 	if (*m_Data != *_end.m_Data)
 		return true;
 
@@ -220,6 +233,8 @@ inline bool iterator<Basic>::operator!=(iterator _end)
 template<class Basic>
 inline bool iterator<Basic>::operator==(iterator _end)
 {
+	assert(m_Data);
+
 	if (*m_Data == *_end.m_Data)
 		return true;
 
@@ -229,6 +244,8 @@ inline bool iterator<Basic>::operator==(iterator _end)
 template<class Basic>
 inline bool iterator<Basic>::operator<=(iterator _end)
 {
+	assert(m_Data);
+
 	if (*m_Data <= *_end.m_Data)
 		return true;
 
@@ -238,6 +255,8 @@ inline bool iterator<Basic>::operator<=(iterator _end)
 template<class Basic>
 inline bool iterator<Basic>::operator>=(iterator _end)
 {
+	assert(m_Data);
+
 	if (*m_Data >= *_end.m_Data)
 		return true;
 
@@ -247,6 +266,8 @@ inline bool iterator<Basic>::operator>=(iterator _end)
 template<class Basic>
 inline bool iterator<Basic>::operator<(iterator _end)
 {
+	assert(m_Data);
+
 	if (*m_Data < *_end.m_Data)
 		return true;
 
@@ -256,6 +277,8 @@ inline bool iterator<Basic>::operator<(iterator _end)
 template<class Basic>
 inline bool iterator<Basic>::operator>(iterator _end)
 {
+	assert(m_Data);
+
 	if (*m_Data > *_end.m_Data)
 		return true;
 
@@ -265,6 +288,8 @@ inline bool iterator<Basic>::operator>(iterator _end)
 template<class Basic>
 inline iterator<Basic>& iterator<Basic>::operator++()
 {
+	assert(m_Data);
+
 	*m_Data++;
 	return *this;
 }
@@ -272,6 +297,9 @@ inline iterator<Basic>& iterator<Basic>::operator++()
 template<class Basic>
 inline iterator<Basic> iterator<Basic>::operator++(int)
 {
+	assert(m_Data);
+
+
 	*m_Data++;
 	return *this;
 }
@@ -279,6 +307,8 @@ inline iterator<Basic> iterator<Basic>::operator++(int)
 template<class Basic>
 inline iterator<Basic> & iterator<Basic>::operator--()
 {
+	assert(m_Data);
+
 	*m_Data--;
 	return *this;
 }
@@ -286,6 +316,8 @@ inline iterator<Basic> & iterator<Basic>::operator--()
 template<class Basic>
 inline iterator<Basic> iterator<Basic>::operator--(int)
 {
+	assert(m_Data);
+
 	*m_Data--;
 	return *this;
 }
@@ -293,5 +325,7 @@ inline iterator<Basic> iterator<Basic>::operator--(int)
 template<class Basic>
 inline Basic iterator<Basic>::operator*()
 {
+	assert(m_Data);
+
 	return m_Data[m_index];
 }
