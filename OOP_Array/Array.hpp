@@ -39,11 +39,19 @@ class iterator
 {
 	typedef Array<Basic> Array;
 	Basic *m_Data;
-	size_t index;
+	size_t m_index;
 public:
 	iterator(Basic*);
-	bool operator!=(Basic*);
+	bool operator!=(iterator);
+	bool operator==(iterator);
+	bool operator<=(iterator);
+	bool operator>=(iterator);
+	bool operator<(iterator);
+	bool operator>(iterator);
 	iterator &operator++();
+	iterator operator++(int);
+	iterator &operator--();
+	iterator operator--(int);
 	Basic operator*();
 };
 
@@ -156,7 +164,7 @@ inline bool Array<Type>::is_full()
 template<typename Type>
 inline iterator<Type> Array<Type>::begin()
 {
-	return this->m_pData;
+	return &m_pData[0];
 }
 
 template<typename Type>
@@ -196,25 +204,94 @@ inline Array<Type>::~Array()
 
 template<class Basic>
 inline iterator<Basic>::iterator(Basic *_arr) :
-	m_Data(_arr), index(0)
+	m_Data(_arr), m_index(0)
 {
 }
 
 template<class Basic>
-inline bool iterator<Basic>::operator!=(Basic * _end)
+inline bool iterator<Basic>::operator!=(iterator _end)
 {
-	return this->index  == 1;
+	if (*m_Data != *_end.m_Data)
+		return true;
+
+	return false;
+}
+
+template<class Basic>
+inline bool iterator<Basic>::operator==(iterator _end)
+{
+	if (*m_Data == *_end.m_Data)
+		return true;
+
+	return false;
+}
+
+template<class Basic>
+inline bool iterator<Basic>::operator<=(iterator _end)
+{
+	if (*m_Data <= *_end.m_Data)
+		return true;
+
+	return false;
+}
+
+template<class Basic>
+inline bool iterator<Basic>::operator>=(iterator _end)
+{
+	if (*m_Data >= *_end.m_Data)
+		return true;
+
+	return false;
+}
+
+template<class Basic>
+inline bool iterator<Basic>::operator<(iterator _end)
+{
+	if (*m_Data < *_end.m_Data)
+		return true;
+
+	return false;
+}
+
+template<class Basic>
+inline bool iterator<Basic>::operator>(iterator _end)
+{
+	if (*m_Data > *_end.m_Data)
+		return true;
+
+	return false;
 }
 
 template<class Basic>
 inline iterator<Basic>& iterator<Basic>::operator++()
 {
-	index++;
+	*m_Data++;
+	return *this;
+}
+
+template<class Basic>
+inline iterator<Basic> iterator<Basic>::operator++(int)
+{
+	*m_Data++;
+	return *this;
+}
+
+template<class Basic>
+inline iterator<Basic> & iterator<Basic>::operator--()
+{
+	*m_Data--;
+	return *this;
+}
+
+template<class Basic>
+inline iterator<Basic> iterator<Basic>::operator--(int)
+{
+	*m_Data--;
 	return *this;
 }
 
 template<class Basic>
 inline Basic iterator<Basic>::operator*()
 {
-	return m_Data[index];
+	return m_Data[m_index];
 }
