@@ -300,7 +300,7 @@ inline iterator<Basic> iterator<Basic>::operator++(int)
 	assert(m_Data);
 
 
-	++*m_Data;
+	*m_Data++;
 	return *this;
 }
 
@@ -318,7 +318,7 @@ inline iterator<Basic> iterator<Basic>::operator--(int)
 {
 	assert(m_Data);
 
-	--*m_Data;
+	*m_Data--;
 	return *this;
 }
 

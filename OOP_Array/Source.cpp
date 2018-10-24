@@ -17,7 +17,7 @@ int main()
 		std::cout << (*begin);
 
 
-	//arr1 = Array<int>(10);
+	arr1 = Array<int>(10);
 	getchar();
 	return 0;
 }
